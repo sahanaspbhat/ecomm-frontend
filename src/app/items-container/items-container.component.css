@@ -1,0 +1,16 @@
+.rect{
+    margin:10px 10px auto;
+    background-color: lightGray;
+}
+
+.content{
+    margin:20px 25px auto;
+    padding-bottom:10px;
+}
+
+.cust-button{
+    margin:10px 10px 10px 600px;
+    text-align: right;
+}
+
+

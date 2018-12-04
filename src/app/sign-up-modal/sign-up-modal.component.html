@@ -1,0 +1,62 @@
+<div class="modal-header text-center" >
+  <h2 class="text-center" id="modal-basic-title">Sign Up</h2> 
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+					<div class="form-group">
+						<input type="text" class="form-control" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Name" required="required">
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required</div>
+                        </div>
+                    </div>     
+          <div class="form-group">
+              <input type="text" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email">
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Invalid Email Format</div>
+            </div>
+        </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="retypemail" [ngClass]="{ 'is-invalid': submitted && f.retypemail.errors }" placeholder="Re-type Email">
+                        <div *ngIf="submitted && f.retypemail.errors" class="invalid-feedback">
+                            <div *ngIf="f.retypemail.errors.required">Confirm Email is required</div>
+                            <div *ngIf="f.retypemail.errors.mustMatch">Emails must match</div>
+                        </div>
+                    </div>
+			<div class="form-group">
+			    <input type="text" class="form-control" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Phone Number" required="required">
+                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required">Phone Number is required</div>
+                    <div *ngIf="f.phone.errors.pattern">Phone Number can contain only numbers</div>
+                    <div *ngIf="f.phone.errors?.maxlength">Phone Number can only have a length of 10</div>
+                </div>
+            </div>
+          <div class="form-group">
+            <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password" required="required">
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback" reverse="true">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.pattern">The Password must contain,
+                        <br>at least 1 lowercase alphabetical character,
+                    	<br>at least 1 uppercase alphabetical character,
+                    	<br>at least 1 numeric character,
+                     	<br>at least one special character,
+                        <br>must be eight characters or longer.</div>
+            </div>        
+            </div>
+            <div class="form-group">
+                    <input type="password" class="form-control" validateEqual="password" formControlName="confirmpassword" [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }" placeholder="Confirm Password" required="required">
+                    <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
+                        <div *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
+                        <div *ngIf = "!f.confirmpassword.errors.required && f.confirmpassword.errors">
+                        Password mismatch
+                    </div>
+                    </div>        
+                    </div>
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+          </div>      
+      </form>
+    </div>

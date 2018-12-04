@@ -1,0 +1,31 @@
+<div class="modal-header text-center" >
+  <h2 class="text-center" id="modal-basic-title">Log in</h2> 
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">      
+          <div class="form-group">
+              <input type="text" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control" placeholder="Email" required="required">
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Invalid Email Format</div>
+            </div>
+            </div>
+          <div class="form-group">
+              <input type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" placeholder="Password" required="required">
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+            </div>
+        </div>
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+          </div>
+          <div class="clearfix">
+              <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+              <a href="#" class="pull-right">Forgot Password?</a>
+          </div>        
+      </form>
+      <p class="text-center"><a href="#">Create an Account</a></p> 
+    </div>
