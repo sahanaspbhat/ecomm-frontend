@@ -30,11 +30,11 @@ export class NavbarOptionsComponent implements OnInit {
 
   openSignUpModal() {
     const modalRef = this.ngbModalService.open(SignUpModalComponent);
-  
+    
     modalRef.result.then((result) => {
       console.log(result);
     }).catch((error) => {
-      console.log(error);
+       console.log(error);
     });
 
     return true;

@@ -19,6 +19,9 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { SignInModalComponent } from './sign-in-modal/sign-in-modal.component';
 import { SignUpModalComponent } from './sign-up-modal/sign-up-modal.component';
 import { EqualValidator } from './helpers/equal-validator.directive'; 
+import { NgxNotificationComponent } from 'ngx-notification';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ErrorHandler } from './helpers/error.handler';
 import 'hammerjs';
 
 
@@ -35,7 +38,8 @@ import 'hammerjs';
     ItemsContainerComponent,
     SignInModalComponent,
     SignUpModalComponent,
-    EqualValidator
+    EqualValidator,
+    NgxNotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +50,10 @@ import 'hammerjs';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
-  providers: [],
+  providers: [ErrorHandler],
   bootstrap: [AppComponent],
   entryComponents : [SignInModalComponent, SignUpModalComponent]
 })

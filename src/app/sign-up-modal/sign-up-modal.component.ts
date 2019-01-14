@@ -2,16 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from '../helpers/must-match.validator';
-
+import { constants } from '../helpers/constants';
+import { AppService } from '../app.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxNotificationService } from 'ngx-notification';
+import { ErrorHandler } from '../helpers/error.handler';
 @Component({
   selector: 'app-sign-up-modal',
   templateUrl: './sign-up-modal.component.html',
-  styleUrls: ['./sign-up-modal.component.css']
+  styleUrls: ['./sign-up-modal.component.css'],
+  providers: [AppService]
 })
 export class SignUpModalComponent implements OnInit {
   registerForm:FormGroup;
   submitted = false;
-  constructor(public activeModal: NgbActiveModal, private formBuilder:FormBuilder) { }
+  constructor(private errorHandler:ErrorHandler, private ngxNotificationService: NgxNotificationService, private ngxSpinnerService : NgxSpinnerService, public activeModal: NgbActiveModal, private formBuilder:FormBuilder, private appService : AppService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -36,6 +41,16 @@ export class SignUpModalComponent implements OnInit {
     if (this.registerForm.invalid) {
         return;
     }
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
-}
+    this.ngxSpinnerService.show();
+    this.appService.postJsonData(this.registerForm.value,constants.URL_PATH_REGISTER)
+    .subscribe(response => {
+     this.ngxSpinnerService.hide();
+     this.activeModal.close();
+     this.ngxNotificationService.sendMessage('User Registered Successfully. Please Sign In.', 'success', 'top-left');
+     console.log(response);
+     }, (error) => {
+       this.ngxSpinnerService.hide();
+       this.activeModal.dismiss();
+       this.ngxNotificationService.sendMessage(this.errorHandler.handleError(error), 'Danger', 'top-left');
+     });}
 }
